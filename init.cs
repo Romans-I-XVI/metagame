@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace testform
+namespace metagame
 {
 	public class MainClass
 	{

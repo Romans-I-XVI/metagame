@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace testform
+namespace metagame
 {
 	public class MainForm : Form
 	{
