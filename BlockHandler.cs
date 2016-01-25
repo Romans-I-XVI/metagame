@@ -17,7 +17,7 @@ namespace metagame
 
 		public int tick()
 		{
-			int removed_block_position = -1;
+			int removed_block_position = 999; //my way of returning an invalid position, saying no block was removed
 			this.ticker += 1;
 
 			for (int i = BlockList.Count - 1; i >= 0; i--)

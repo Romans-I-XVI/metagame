@@ -15,7 +15,7 @@ namespace metagame
 			default:
 				letter_positions [0, 0] = 1;
 				letter_positions [0, 1] = 1;
-				letter_positions [0, 2] = 0;
+				letter_positions [0, 2] = 1;
 				letter_positions [0, 3] = 1;
 				letter_positions [0, 4] = 1;
 				letter_positions [1, 0] = 0;

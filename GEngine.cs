@@ -44,19 +44,15 @@ namespace metagame
 				Rectangle player_rectangle = new Rectangle (game.player.xpos, game.player.ypos, game.player.width, game.player.height);
 				drawHandle.FillRectangle (game.black_brush, player_rectangle);
 
-				//Draw falling blocks
-				foreach (var block in game.block_handler.BlockList) {
-					Rectangle block_rectangle = new Rectangle(block.xpos, block.ypos, block.width, block.height);
-					drawHandle.FillRectangle(game.black_brush, block_rectangle);
-				}
-
 				//Draw letter outlines
 				for (int i = 0; i < 5; i++)
 				{
 					if (letter.letter_positions [0, i] == 1) {
 						Rectangle letter_block = new Rectangle ((Game.BLOCK_ZONE_LEFT + i * 20) - game.player.x_offset, game.player.ypos - 20, 20, 20);
 						drawHandle.FillRectangle (game.blue_brush, letter_block);
-						if (removed_block_position == i)
+						Console.WriteLine (removed_block_position);
+						Console.WriteLine(i+game.player.position);
+						if (removed_block_position == i+game.player.position)
 							letter.letter_positions [0, i] = 2;
 					}
 					else if (letter.letter_positions[0,i] == 2) {
@@ -64,8 +60,12 @@ namespace metagame
 						drawHandle.FillRectangle (game.black_brush, letter_block);
 					}
 				}
-						
 
+				//Draw falling blocks
+				foreach (var block in game.block_handler.BlockList) {
+					Rectangle block_rectangle = new Rectangle(block.xpos, block.ypos, block.width, block.height);
+					drawHandle.FillRectangle(game.black_brush, block_rectangle);
+				}
 
 				Thread.Sleep (17);
 
