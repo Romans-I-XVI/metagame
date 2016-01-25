@@ -40,6 +40,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="init.cs" />
     <Compile Include="main.cs" />
+    <Compile Include="BlockHandler.cs" />
+    <Compile Include="Block.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="GEngine.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Letter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
