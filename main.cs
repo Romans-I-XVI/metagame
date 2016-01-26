@@ -10,15 +10,11 @@ namespace metagame
 	public class MainForm : Form
 	{
 		private Game game = new Game();
-		int form_width;
-		int form_height;
 
-		public MainForm(int form_width, int form_height, int block_speed)
+		public MainForm(int block_speed)
 		{	
-			this.form_width = form_width;
-			this.form_height = form_height;
-			this.MinimumSize = new Size(this.form_width, this.form_height);
-			this.MaximumSize = new Size(this.form_width, this.form_height);
+			this.MinimumSize = new Size(Game.WIDTH, Game.HEIGHT);
+			this.MaximumSize = new Size(Game.WIDTH, Game.HEIGHT);
 			Graphics g = CreateGraphics ();
 			game.startGraphics (g);
 		}

@@ -8,7 +8,7 @@ namespace metagame
 		[STAThread]
 		public static void Main()
 		{
-			Application.Run(new MainForm(600, 600, 5));
+			Application.Run(new MainForm(5));
 		}
 	}
 }

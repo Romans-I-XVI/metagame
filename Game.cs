@@ -15,6 +15,7 @@ namespace metagame
 
 		//-----------Game Objects---------//
 		public BlockHandler block_handler = new BlockHandler (5);
+		public LetterHandler letter_handler = new LetterHandler ("metacommunications");
 		public Player player = new Player ();
 		public SolidBrush black_brush = new SolidBrush(Color.Black);
 		public SolidBrush white_brush = new SolidBrush(Color.White);

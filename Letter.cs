@@ -6,11 +6,11 @@ namespace metagame
 	{
 		public int line_position = 0;
 		public int[,] letter_positions = new int[5,5];
-		public Letter (string letter)
+		public Letter (char letter)
 		{
 			switch (letter)
 			{
-			case "m":
+			case 'a':
 				break;
 			default:
 				letter_positions [0, 0] = 1;
@@ -40,6 +40,18 @@ namespace metagame
 				letter_positions [4, 4] = 1;
 				break;
 			}
+		}
+
+		public void update_line_position()
+		{
+			bool all_blocks_covered = true;
+			for (int i = 0; i < 4; i++) {
+				if (this.letter_positions [this.line_position, i] == 1) {
+					all_blocks_covered = false;
+				}
+			}
+			if (all_blocks_covered)
+				this.line_position++;
 		}
 	}
 }

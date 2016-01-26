@@ -46,6 +46,7 @@
     <Compile Include="GEngine.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Letter.cs" />
+    <Compile Include="LetterHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
