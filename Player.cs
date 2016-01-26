@@ -13,7 +13,7 @@ namespace metagame
 		public Player ()
 		{
 			this.xpos = Game.WIDTH / 2 - this.width / 2;
-			this.ypos = Game.HEIGHT - Game.HEIGHT/4;
+			this.ypos = Game.HEIGHT - 150;
 			this.x_offset = 0;
 		}
 		public void UpdatePosition ()

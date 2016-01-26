@@ -23,7 +23,7 @@ namespace metagame
 			for (int i = BlockList.Count - 1; i >= 0; i--)
 			{
 				BlockList[i].ypos += BlockList[i].speed;
-				if (BlockList [i].ypos > Game.HEIGHT - Game.HEIGHT / 4 - 20) {
+				if (BlockList [i].ypos > Game.HEIGHT - 150 - 20) {
 					removed_block_position = BlockList [i].position;
 					BlockList.RemoveAt (i);
 				}
