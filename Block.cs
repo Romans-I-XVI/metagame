@@ -9,9 +9,9 @@ namespace metagame
 		public int ypos;
 		public int width;
 		public int height;
-		public int speed;
+		public float speed;
 
-		public Block(int position, int xpos, int ypos, int width, int height, int speed)
+		public Block(int position, int xpos, int ypos, int width, int height, float speed)
 		{
 			this.position = position;
 			this.xpos = xpos;

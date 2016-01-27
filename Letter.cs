@@ -40,6 +40,14 @@ namespace metagame
 			if (all_blocks_covered)
 				this.line_position++;
 		}
+
+		public void reset_active_line()
+		{
+			for (int i = 0; i <= 4; i++) {
+				if (this.letter_positions[this.line_position, i] == 2) 
+					this.letter_positions[this.line_position, i] = 1;
+			}
+		}
 	}
 }
 

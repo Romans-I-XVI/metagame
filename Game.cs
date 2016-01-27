@@ -15,14 +15,16 @@ namespace metagame
 		public static readonly int HEIGHT = Screen.PrimaryScreen.WorkingArea.Height-Screen.PrimaryScreen.WorkingArea.Height/10;
 		public static readonly int WIDTH = Screen.PrimaryScreen.WorkingArea.Width-Screen.PrimaryScreen.WorkingArea.Width/10;
 		public static readonly int BLOCK_ZONE_LEFT = WIDTH/2-50;
+		public static readonly int LOWER_LINE_POSITION = HEIGHT - 150;
 
 		//-----------Game Objects---------//
-		public BlockHandler block_handler = new BlockHandler (5);
-		public LetterHandler letter_handler = new LetterHandler ("telecommunications");
+		public BlockHandler block_handler = new BlockHandler (0);
+		public LetterHandler letter_handler = new LetterHandler ("metacommunications");
 		public Player player = new Player ();
 		public SolidBrush black_brush = new SolidBrush(Color.Black);
 		public SolidBrush white_brush = new SolidBrush(Color.White);
 		public SolidBrush blue_brush = new SolidBrush (Color.Blue);
+		public SolidBrush gray_brush = new SolidBrush (Color.LightGray);
 		public Font default_font = new Font("Ariel", 16);
 
 		private GEngine gEngine;
