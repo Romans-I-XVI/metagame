@@ -15,7 +15,7 @@ namespace metagame
 			this.block_speed = block_speed;
 		}
 
-		public int? tick()
+		public int? tick(int spawn_interval)
 		{
 			int? removed_block_position = null; 
 			this.ticker += 1;
@@ -31,7 +31,7 @@ namespace metagame
 				}
 			}
 
-			if (this.ticker >= 60) 
+			if (this.ticker >= spawn_interval) 
 			{
 				int rnd_position = rnd.Next(5);
 				Block block = new Block (rnd_position, Game.WIDTH/2-50+rnd_position*20, -20, 20, 20, this.block_speed);

@@ -19,13 +19,15 @@ namespace metagame
 
 		//-----------Game Objects---------//
 		public BlockHandler block_handler = new BlockHandler (0);
-		public LetterHandler letter_handler = new LetterHandler ("metacommunications");
+		public LetterHandler letter_handler = new LetterHandler ("meta");
 		public Player player = new Player ();
 		public SolidBrush black_brush = new SolidBrush(Color.Black);
 		public SolidBrush white_brush = new SolidBrush(Color.White);
-		public SolidBrush blue_brush = new SolidBrush (Color.Blue);
-		public SolidBrush gray_brush = new SolidBrush (Color.LightGray);
-		public Font default_font = new Font("Ariel", 16);
+		public SolidBrush blue_brush = new SolidBrush (Color.FromArgb(0xff, 0x26, 0xa9, 0xda));
+		public SolidBrush blue_brush_2 = new SolidBrush (Color.FromArgb(0xff, 0x21, 0x94, 0xbf));
+		public SolidBrush gray_brush = new SolidBrush (Color.FromArgb(0xaf, 0xe6, 0xe7, 0xe8));
+		public Font game_word_font = new Font("Ariel", 40, FontStyle.Bold);
+		public Font default_font = new Font("Ariel", 24, FontStyle.Bold);
 
 		private GEngine gEngine;
 

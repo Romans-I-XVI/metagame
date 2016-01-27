@@ -35,21 +35,22 @@ namespace metagame
 
 		public void check_removed_block_position (int removed_block_position, int player_position)
 		{
-			bool need_to_reset_line = true;
-			Letter active_letter = this.array_letters[0];
-			for (int c = 0; c <= 4; c++) {
-				if ((removed_block_position == c + player_position) && (active_letter.letter_positions[active_letter.line_position, c] == 1)) 
-				{
-					need_to_reset_line = false;
-					active_letter.letter_positions [active_letter.line_position, c] = 2;
-					active_letter.update_line_position ();
+			if (this.array_letters.Count > 0) {
+				bool need_to_reset_line = true;
+				Letter active_letter = this.array_letters [0];
+				for (int c = 0; c <= 4; c++) {
+					if ((removed_block_position == c + player_position) && (active_letter.letter_positions [active_letter.line_position, c] == 1)) {
+						need_to_reset_line = false;
+						active_letter.letter_positions [active_letter.line_position, c] = 2;
+						active_letter.update_line_position ();
+					}
 				}
-			}
 
-			if (need_to_reset_line) {
-				active_letter.reset_active_line ();
+				if (need_to_reset_line) {
+					active_letter.reset_active_line ();
+				}
+					
 			}
-				
 		}
 	}
 }
