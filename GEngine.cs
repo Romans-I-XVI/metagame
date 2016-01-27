@@ -35,11 +35,15 @@ namespace metagame
 			int framesRendered = 0;
 			int pt = 0;
 			long startTime = Environment.TickCount;
+
+			Bitmap frame = new Bitmap (Game.WIDTH, Game.HEIGHT); 
+			Graphics frameGraphics = Graphics.FromImage (frame);
+			bool need_frame = true;
 			while (true) 
 			{
 				//This will limit the game to 60 FPS, the game uses frame based movement.
 				//I know from a game development standpoint this is not good practice, but that's not the point of this project...
-				if (Environment.TickCount >= pt+17)
+				if (need_frame)
 				{
 					pt = Environment.TickCount;
 
@@ -54,16 +58,16 @@ namespace metagame
 
 					//Draw solid game background
 					Rectangle rect = new Rectangle(0, 0, Game.WIDTH, Game.HEIGHT);
-					drawHandle.FillRectangle(game.blue_brush, rect);
+					frameGraphics.FillRectangle(game.blue_brush, rect);
 
 					//Draw lower portion
 					Rectangle lower_rectangle = new Rectangle(0, Game.LOWER_LINE_POSITION, Game.WIDTH, 150);
-					drawHandle.FillRectangle(game.blue_brush_2, lower_rectangle);
+					frameGraphics.FillRectangle(game.blue_brush_2, lower_rectangle);
 
 
 					//Draw the player rectangle
 //					Rectangle player_rectangle = new Rectangle (game.player.xpos, game.player.ypos, game.player.width, game.player.height);
-//					drawHandle.FillRectangle (game.white_brush, player_rectangle);
+//					frameGraphics.FillRectangle (game.white_brush, player_rectangle);
 
 					//Draw letter blocks and change letter blocks if there was a collision
 					for (int l = 0; l < game.letter_handler.array_letters.Count; l++) {
@@ -74,9 +78,9 @@ namespace metagame
 								{
 									Rectangle letter_block = new Rectangle ((Game.BLOCK_ZONE_LEFT + c * 20)-game.player.x_offset, (game.player.ypos-20-r*20+game.letter_handler.array_letters [0].line_position*20)-l*120, 20, 20);
 									if (current_letter.letter_positions [r, c] == 1) {
-										drawHandle.FillRectangle (game.gray_brush, letter_block);
+										frameGraphics.FillRectangle (game.gray_brush, letter_block);
 									} else if (current_letter.letter_positions [r, c] == 2) {
-										drawHandle.FillRectangle (game.white_brush, letter_block);
+										frameGraphics.FillRectangle (game.white_brush, letter_block);
 									}
 								}
 							}
@@ -92,21 +96,30 @@ namespace metagame
 					//Draw falling blocks
 					foreach (var block in game.block_handler.BlockList) {
 						Rectangle block_rectangle = new Rectangle(block.xpos, block.ypos, block.width, block.height);
-						drawHandle.FillRectangle(game.white_brush, block_rectangle);
+						frameGraphics.FillRectangle(game.white_brush, block_rectangle);
 					}
 
 					//Draw acquired letters text
-					SizeF font_dimensions = drawHandle.MeasureString(game.letter_handler.completed_characters, game.game_word_font);
+					SizeF font_dimensions = frameGraphics.MeasureString(game.letter_handler.completed_characters, game.game_word_font);
 					RectangleF text_rectangle = new RectangleF(Game.WIDTH/2-font_dimensions.Width/2, Game.HEIGHT-font_dimensions.Height-60, font_dimensions.Width, font_dimensions.Height);
-					drawHandle.DrawString(game.letter_handler.completed_characters, game.game_word_font, game.white_brush, text_rectangle);
+					frameGraphics.DrawString(game.letter_handler.completed_characters, game.game_word_font, game.white_brush, text_rectangle);
 
 					//Draw winning text
 					if (game.letter_handler.array_letters.Count == 0) {
-						SizeF winning_font_dimensions = drawHandle.MeasureString ((string)"You Win!", game.game_word_font);
+						SizeF winning_font_dimensions = frameGraphics.MeasureString ((string)"You Win!", game.game_word_font);
 						RectangleF winning_text_rectangle = new RectangleF (Game.WIDTH / 2 - winning_font_dimensions.Width / 2, Game.HEIGHT / 2 - winning_font_dimensions.Height / 2, winning_font_dimensions.Width, winning_font_dimensions.Height);
-						drawHandle.DrawString ("You Win!", game.game_word_font, game.white_brush, winning_text_rectangle);
+						frameGraphics.DrawString ("You Win!", game.game_word_font, game.white_brush, winning_text_rectangle);
 					}
 
+					//Make it so only one new frame is created in the offcycle
+					need_frame = false;
+				}
+
+				// Draws the offcycle created frame and resets ticker
+				if (Environment.TickCount >= pt+17) 
+				{
+					//Draw final frame to the screen as a single bitmap
+					drawHandle.DrawImage(frame, 0, 0);
 
 					//Benchmarking
 					framesRendered++;
@@ -114,7 +127,11 @@ namespace metagame
 						Console.WriteLine ("GEngine: " + framesRendered + " fps");
 						framesRendered = 0;
 						startTime = Environment.TickCount;
+
 					}
+
+					// Make it so a new frame is created in between now and 17 milliseconds from now
+					need_frame = true;
 				}
 			}	
 		}
