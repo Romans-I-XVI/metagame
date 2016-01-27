@@ -7,12 +7,13 @@ namespace metagame
 	{
 		Random rnd = new Random();
 		int ticker = 0;
-		float block_speed;
+		float block_speed = 0;
+		float block_accel;
 		public List<Block> BlockList = new List<Block>();
 
-		public BlockHandler(float block_speed)
+		public BlockHandler(float block_accel)
 		{
-			this.block_speed = block_speed;
+			this.block_accel = block_accel;
 		}
 
 		public int? tick(int spawn_interval)
@@ -23,7 +24,7 @@ namespace metagame
 			for (int i = BlockList.Count - 1; i >= 0; i--)
 			{
 
-				BlockList[i].speed += (float) 0.1;
+				BlockList[i].speed += this.block_accel;
 				BlockList[i].ypos += (int) BlockList[i].speed;
 				if (BlockList [i].ypos > Game.LOWER_LINE_POSITION - 20) {
 					removed_block_position = BlockList [i].position;

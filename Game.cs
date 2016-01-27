@@ -18,8 +18,11 @@ namespace metagame
 		public static readonly int LOWER_LINE_POSITION = HEIGHT - 150;
 
 		//-----------Game Objects---------//
-		public BlockHandler block_handler = new BlockHandler (0);
-		public LetterHandler letter_handler = new LetterHandler ("metacommunications");
+		public BlockHandler block_handler;
+		public LetterHandler letter_handler;
+		public int spawn_interval;
+		private GEngine gEngine;
+
 		public Player player = new Player ();
 		public SolidBrush black_brush = new SolidBrush(Color.Black);
 		public SolidBrush white_brush = new SolidBrush(Color.White);
@@ -29,7 +32,12 @@ namespace metagame
 		public Font game_word_font = new Font("Ariel", 40, FontStyle.Bold);
 		public Font default_font = new Font("Ariel", 24, FontStyle.Bold);
 
-		private GEngine gEngine;
+		public Game (string game_word, float block_accel, int spawn_interval)
+		{
+			this.letter_handler = new LetterHandler (game_word);
+			this.block_handler = new BlockHandler (block_accel);
+			this.spawn_interval = spawn_interval;
+		}
 
 		public void startGraphics(Graphics g)
 		{

@@ -9,12 +9,13 @@ namespace metagame
 {
 	public class MainForm : Form
 	{
-		private Game game = new Game();
+		private Game game;
 
-		public MainForm(int block_speed)
+		public MainForm(string game_word, float block_accel, int spawn_interval)
 		{	
 			this.MinimumSize = new Size(Game.WIDTH, Game.HEIGHT);
 			this.MaximumSize = new Size(Game.WIDTH, Game.HEIGHT);
+			this.game = new Game(game_word, block_accel, spawn_interval);
 			Graphics g = CreateGraphics ();
 			game.startGraphics (g);
 		}

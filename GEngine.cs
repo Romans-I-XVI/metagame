@@ -44,10 +44,8 @@ namespace metagame
 					pt = Environment.TickCount;
 
 					//Update game object positions
-					int block_spawn_interval;
-					if (game.letter_handler.array_letters.Count > 0)
-						block_spawn_interval = 60;
-					else
+					int block_spawn_interval = game.spawn_interval;
+					if (game.letter_handler.array_letters.Count == 0)
 						block_spawn_interval = 10;
 					int? removed_block_position = game.block_handler.tick (block_spawn_interval);
 					if (removed_block_position.HasValue)
