@@ -25,7 +25,7 @@ namespace metagame
 			}
 
 			//Create new letter objects for each char in the game word
-			for (int i = this.game_characters.Length - 1; i >= 0; i--){
+			for (int i = 0; i <= this.game_characters.Length - 1; i++){
 				Console.WriteLine (this.game_characters [i]);
 				if (Char.IsLetter (this.game_characters [i])) {
 					this.array_letters.Add (new Letter (this.game_characters [i]));

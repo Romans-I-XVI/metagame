@@ -87,7 +87,7 @@ namespace metagame
 
 					// Remove letter from array if it has been completed
 					if ((game.letter_handler.array_letters.Count > 0) && (game.letter_handler.array_letters [0].line_position == 5)) {
-						game.letter_handler.completed_characters = game.letter_handler.array_letters [0].letter_string.ToUpper() + game.letter_handler.completed_characters;
+						game.letter_handler.completed_characters += game.letter_handler.array_letters [0].letter_string.ToUpper();
 						game.letter_handler.array_letters.RemoveAt (0);
 					}
 
