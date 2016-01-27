@@ -15,10 +15,20 @@ namespace metagame
 			switch (args.Length) 
 			{
 			case 3:
-				spawn_interval = int.Parse (args [2]);
+				try {
+					spawn_interval = int.Parse(args[2]);
+				}
+				catch {
+					Console.WriteLine ("Non-integer argument entered, using default spawn interval");
+				}
 				goto case 2;
 			case 2:
-				block_accel = float.Parse (args [1]);
+				try {
+					block_accel = float.Parse(args[1]);
+				}
+				catch {
+					Console.WriteLine ("Non-float argument entered, using default block acceleration");
+				}
 				goto case 1;
 			case 1:
 				game_word = args [0];
