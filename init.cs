@@ -10,8 +10,8 @@ namespace metagame
 		{	
 			// Set defaults for game arguments
 			string game_word = "metacommunications";
-			float block_accel = 10;
-			int spawn_interval = 60;
+			float block_accel = 20;
+			int spawn_interval = 30;
 
 			// Handle command line arguments
 			switch (args.Length) 

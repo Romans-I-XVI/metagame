@@ -11,15 +11,16 @@ namespace metagame
 	{
 		private Game game;
 
-		// Set form size limits and create a new game instance
-		public MainForm(string game_word, float block_accel, int spawn_interval)
-		{	
-			this.MinimumSize = new Size(Game.WIDTH, Game.HEIGHT);
+        // Set form size limits and create a new game instance
+        public MainForm(string game_word, float block_accel, int spawn_interval)
+        {
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+            this.MinimumSize = new Size(Game.WIDTH, Game.HEIGHT);
 			this.MaximumSize = new Size(Game.WIDTH, Game.HEIGHT);
 			this.game = new Game(game_word, block_accel, spawn_interval);
 			Graphics g = CreateGraphics ();
 			game.startGraphics (g);
-		}
+        }
 
 		// Stop the main game script execution if the form is closed
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

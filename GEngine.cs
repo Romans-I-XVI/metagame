@@ -39,6 +39,8 @@ namespace metagame
 		{
 			// This is from frame timing and benchmarking
 			long startTime = Environment.TickCount;
+            long framerateStartTime = Environment.TickCount;
+            int frames_drawn = 0;
 
 			// We will draw to this Bitmap first, and then draw the entire bitmap to the Form as a single frame
 			Bitmap frame = new Bitmap (Game.WIDTH, Game.HEIGHT); 
@@ -50,10 +52,13 @@ namespace metagame
 				// Handle the game objects updating and drawing to Bitmap during the offcycle (in between draws to the form)
 				if (need_frame)
 				{
+                    //Add to framerate benchmark
+                    frames_drawn++;
+
 					//Update game object positions
 					int block_spawn_interval = game.spawn_interval;
 					if (game.letter_handler.array_letters.Count == 0)
-						block_spawn_interval = 10;
+						block_spawn_interval = 8;
 					int? removed_block_position = game.block_handler.tick (block_spawn_interval);
 					if (removed_block_position.HasValue)
 						game.letter_handler.check_removed_block_position (removed_block_position.Value, game.player.position);
@@ -66,11 +71,6 @@ namespace metagame
 					//Draw lower portion
 					Rectangle lower_rectangle = new Rectangle(0, Game.LOWER_LINE_POSITION, Game.WIDTH, 150);
 					frameGraphics.FillRectangle(game.blue_brush_2, lower_rectangle);
-
-
-					//Draw the player rectangle
-//					Rectangle player_rectangle = new Rectangle (game.player.xpos, game.player.ypos, game.player.width, game.player.height);
-//					frameGraphics.FillRectangle (game.white_brush, player_rectangle);
 
 					//Draw letter blocks and change letter blocks if there was a collision
 					for (int l = 0; l < game.letter_handler.array_letters.Count; l++) {
@@ -118,18 +118,25 @@ namespace metagame
 					need_frame = false;
 				}
 
-				//This will limit the game to 60 FPS, the game uses frame based movement.
+				//This will limit the game to ~33 FPS, the game uses frame based movement.
 				//I know from a game development standpoint this is not good practice, but that's not the point of this project...
-				if (Environment.TickCount >= startTime+17) 
-				{
-					//Draw final frame to the screen as a single bitmap
-					//Make sure this remains the first line executed within this 'if' statement in order to get a smooth framerate
-					drawHandle.DrawImage(frame, 0, 0);
+				if (Environment.TickCount >= startTime+30)
+                {
+                    startTime = Environment.TickCount;
 
-					// Make it so a new frame is created in between now and 17 milliseconds from now
-					need_frame = true;
-					startTime = Environment.TickCount;
-				}
+                    //Draw final frame to the screen as a single bitmap
+                    drawHandle.DrawImage(frame, 0, 0);
+
+                    // Make it so a new frame is created in between now and 30 milliseconds from now
+                    need_frame = true;
+                }
+
+                if (Environment.TickCount >= framerateStartTime+1000)
+                {
+                    Console.WriteLine(frames_drawn + " FPS");
+                    frames_drawn = 0;
+                    framerateStartTime = Environment.TickCount;
+                }
 			}	
 		}
 	}
