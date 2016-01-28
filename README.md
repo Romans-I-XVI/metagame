@@ -11,6 +11,6 @@ The active line will be reset if a block falls in the wrong position.
 #### Command Line Arguments
 The game also accepts command line arguments in order to personalize the experience
 
-metagame.exe \<game word (as string)\> \<block acceleration (as float)\> \<block spawn rate (as int)\>
+metagame.exe \<game word (as string)\> \<block acceleration (as float)\> \<block spawn interval (as int)\>
 
 e.g.  metagame.exe videogames 30 20
