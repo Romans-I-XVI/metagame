@@ -13,11 +13,13 @@ namespace metagame
 		private Thread renderThread;
 		private Game game;
 
+		// Set Graphics object from form window
 		public GEngine(Graphics g)
 		{
 			drawHandle = g;
 		}
 
+		// Start a new gameplay rendering thread, 
 		public void init(Game game)
 		{
 			this.game = game;
@@ -25,28 +27,29 @@ namespace metagame
 			renderThread.Start ();
 		}
 
+		// End the rendering Thread object on form close
 		public void stop()
 		{
 			renderThread.Abort ();
 		}
 
+		// This is the main game loop, which is running on a thread separate from the Form
+		// This is where the magic happens
 		private void render()
 		{
-			int framesRendered = 0;
-			int pt = 0;
+			// This is from frame timing and benchmarking
 			long startTime = Environment.TickCount;
 
+			// We will draw to this Bitmap first, and then draw the entire bitmap to the Form as a single frame
 			Bitmap frame = new Bitmap (Game.WIDTH, Game.HEIGHT); 
 			Graphics frameGraphics = Graphics.FromImage (frame);
+
 			bool need_frame = true;
 			while (true) 
 			{
-				//This will limit the game to 60 FPS, the game uses frame based movement.
-				//I know from a game development standpoint this is not good practice, but that's not the point of this project...
+				// Handle the game objects updating and drawing to Bitmap during the offcycle (in between draws to the form)
 				if (need_frame)
 				{
-					pt = Environment.TickCount;
-
 					//Update game object positions
 					int block_spawn_interval = game.spawn_interval;
 					if (game.letter_handler.array_letters.Count == 0)
@@ -76,7 +79,7 @@ namespace metagame
 								Letter current_letter = game.letter_handler.array_letters [l];
 								if (r >= current_letter.line_position) 
 								{
-									Rectangle letter_block = new Rectangle ((Game.BLOCK_ZONE_LEFT + c * 20)-game.player.x_offset, (game.player.ypos-20-r*20+game.letter_handler.array_letters [0].line_position*20)-l*120, 20, 20);
+									Rectangle letter_block = new Rectangle ((Game.BLOCK_ZONE_LEFT + c * 20)-game.player.offset, (game.player.ypos-20-r*20+game.letter_handler.array_letters [0].line_position*20)-l*120, 20, 20);
 									if (current_letter.letter_positions [r, c] == 1) {
 										frameGraphics.FillRectangle (game.gray_brush, letter_block);
 									} else if (current_letter.letter_positions [r, c] == 2) {
@@ -115,23 +118,17 @@ namespace metagame
 					need_frame = false;
 				}
 
-				// Draws the offcycle created frame and resets ticker
-				if (Environment.TickCount >= pt+17) 
+				//This will limit the game to 60 FPS, the game uses frame based movement.
+				//I know from a game development standpoint this is not good practice, but that's not the point of this project...
+				if (Environment.TickCount >= startTime+17) 
 				{
 					//Draw final frame to the screen as a single bitmap
+					//Make sure this remains the first line executed within this 'if' statement in order to get a smooth framerate
 					drawHandle.DrawImage(frame, 0, 0);
-
-					//Benchmarking
-					framesRendered++;
-					if (Environment.TickCount >= startTime + 1000) {
-						Console.WriteLine ("GEngine: " + framesRendered + " fps");
-						framesRendered = 0;
-						startTime = Environment.TickCount;
-
-					}
 
 					// Make it so a new frame is created in between now and 17 milliseconds from now
 					need_frame = true;
+					startTime = Environment.TickCount;
 				}
 			}	
 		}

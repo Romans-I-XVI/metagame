@@ -8,10 +8,12 @@ namespace metagame
 		[STAThread]
 		public static void Main(string[] args)
 		{	
+			// Set defaults for game arguments
 			string game_word = "metacommunications";
 			float block_accel = 10;
 			int spawn_interval = 60;
 
+			// Handle command line arguments
 			switch (args.Length) 
 			{
 			case 3:
@@ -38,8 +40,10 @@ namespace metagame
 			
 			}
 
+			// Make block acceleration a percentage of a whole number
 			block_accel = block_accel / 100;
 				
+			// Create the form for the game
 			Application.Run(new MainForm(game_word, block_accel, spawn_interval));
 		}
 	}

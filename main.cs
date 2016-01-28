@@ -11,6 +11,7 @@ namespace metagame
 	{
 		private Game game;
 
+		// Set form size limits and create a new game instance
 		public MainForm(string game_word, float block_accel, int spawn_interval)
 		{	
 			this.MinimumSize = new Size(Game.WIDTH, Game.HEIGHT);
@@ -20,25 +21,27 @@ namespace metagame
 			game.startGraphics (g);
 		}
 
-		private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
+		// Stop the main game script execution if the form is closed
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			Console.WriteLine ("Main game form has been closed");
 			game.stopGame ();
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
+			// Handle left arrow key
 			if ((keyData == Keys.Left)&&(game.player.position > -4))
 			{
 				game.player.position--;
-				return true;
 			}
-			//capture right arrow key
+
+			// Handle right arrow key
 			if ((keyData == Keys.Right)&&(game.player.position < 4) )
 			{
 				game.player.position++;
-				return true;
 			}
-			return false;
+			return true;
 		}
 	}
 

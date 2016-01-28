@@ -11,16 +11,19 @@ namespace metagame
 		float block_accel;
 		public List<Block> BlockList = new List<Block>();
 
+		//Create the block handler with the appropriate block acceleration
 		public BlockHandler(float block_accel)
 		{
 			this.block_accel = block_accel;
 		}
 
+		// Perform block related actions on a regular interval (called within the gEngine rendering section)
 		public int? tick(int spawn_interval)
 		{
 			int? removed_block_position = null; 
 			this.ticker += 1;
 
+			// Move Block positions
 			for (int i = BlockList.Count - 1; i >= 0; i--)
 			{
 
@@ -32,6 +35,7 @@ namespace metagame
 				}
 			}
 
+			// Add a new Block to the list
 			if (this.ticker >= spawn_interval) 
 			{
 				int rnd_position = rnd.Next(5);

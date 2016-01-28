@@ -10,6 +10,7 @@ namespace metagame
 		public char[] game_characters;
 		public List<Letter> array_letters = new List<Letter> ();
 
+		// Create the letter handler with this game's specific word
 		public LetterHandler (string game_word)
 		{
 			this.game_word = game_word.ToLower();
@@ -17,6 +18,7 @@ namespace metagame
 			this.SetLetters ();
 		}
 
+		// Create letter objects and add them to the letter list (also removes any current letters in case I would want to reset the list)
 		public void SetLetters()
 		{
 			//Remove all objects in array before adding new
@@ -26,13 +28,13 @@ namespace metagame
 
 			//Create new letter objects for each char in the game word
 			for (int i = 0; i <= this.game_characters.Length - 1; i++){
-				Console.WriteLine (this.game_characters [i]);
 				if (Char.IsLetter (this.game_characters [i])) {
 					this.array_letters.Add (new Letter (this.game_characters [i]));
 				}
 			}
 		}
 
+		// See if the removed falling block position is equal to a valid letter block position, change letter block states accordingly
 		public void check_removed_block_position (int removed_block_position, int player_position)
 		{
 			if (this.array_letters.Count > 0) {

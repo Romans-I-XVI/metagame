@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Xml;
 using System.IO;
 
@@ -10,6 +9,8 @@ namespace metagame
 		public string letter_string;
 		public int line_position = 0;
 		public int[,] letter_positions = new int[5,5];
+
+		// Construct the letter object based on the Char and corresponding positions defined in letter_positions.xml
 		public Letter (char letter)
 		{
 			this.letter_string = letter.ToString();
@@ -24,13 +25,12 @@ namespace metagame
 				char[] row_chars = row_string.ToCharArray ();
 				for (int c = 0; c <= 4; c++)
 					this.letter_positions [r, c] = int.Parse (row_chars [c].ToString ());
-				Console.WriteLine (row_string);
 			}
 		}
 
+		// Shift the active line position if all blocks have been covered
 		public void update_line_position()
 		{
-			Console.WriteLine (this.letter_positions [0, 0]);
 			bool all_blocks_covered = true;
 			for (int i = 0; i <= 4; i++) {
 				if (this.letter_positions [this.line_position, i] == 1) {
@@ -41,6 +41,7 @@ namespace metagame
 				this.line_position++;
 		}
 
+		// reset the active line colors
 		public void reset_active_line()
 		{
 			for (int i = 0; i <= 4; i++) {
