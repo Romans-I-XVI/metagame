@@ -14,3 +14,5 @@ The game also accepts command line arguments in order to personalize the experie
 metagame.exe \<game word (as string)\> \<block acceleration (as float)\> \<block spawn interval (as int)\>
 
 e.g.  metagame.exe videogames 30 20
+
+e.g.  metagame.exe programming
